@@ -17,7 +17,7 @@ public class SwaggerConfig {
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("ar.com.flexibility.examen")).paths(regex("/.*")).build();
+				.apis(RequestHandlerSelectors.basePackage("com.valtech.ejercicio")).paths(regex("/.*")).build();
 	}
 
 }
