@@ -1,0 +1,7 @@
+FROM java:8
+
+EXPOSE 8080
+
+ADD /target/ejercicio-1.0.jar ejercicio-1.0.jar
+
+ENTRYPOINT ["java","-jar","ejercicio-1.0.jar"]
