@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valtech.ejercicio.entity.Usuario;
+import com.valtech.ejercicio.model.UsuarioModel;
 import com.valtech.ejercicio.service.UsuarioService;
 import com.valtech.ejercicio.service.impl.UsuarioServiceImpl;
 
@@ -33,17 +34,17 @@ public class UsuarioRestController {
 	private final Log LOG = LogFactory.getLog(UsuarioServiceImpl.class);
 
 	@GetMapping("/get-usuarios")
-	public ResponseEntity<List<Usuario>> getUsuarios() {
+	public ResponseEntity<List<UsuarioModel>> getUsuarios() {
 		LOG.info("Ingresé al metodo getUsuarios dentro de UsuarioRestController");
-		return new ResponseEntity<List<Usuario>>(usuarioService.listUsuarios(), HttpStatus.OK);
+		return new ResponseEntity<List<UsuarioModel>>(usuarioService.listUsuarios(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUsuarioById(@PathVariable("id") Long id) {
 		LOG.info("Ingresé al metodo getUsuarioById dentro de UsuarioRestController con el parametro " + id);
 		try {
-			Usuario usuario = usuarioService.findById(id);
-			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+			UsuarioModel usuarioModel = usuarioService.findById(id);
+			return new ResponseEntity<UsuarioModel>(usuarioModel, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
@@ -51,16 +52,16 @@ public class UsuarioRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+	public ResponseEntity<UsuarioModel> createUsuario(@RequestBody Usuario usuario) {
 		LOG.info("Ingresé al metodo createUsuario dentro de UsuarioRestController con el parametro "
 				+ usuario.toString());
-		return new ResponseEntity<Usuario>(usuarioService.save(usuario), HttpStatus.OK);
+		return new ResponseEntity<UsuarioModel>(usuarioService.save(usuario), HttpStatus.OK);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Usuario> update(@RequestBody Usuario usuario) {
+	public ResponseEntity<UsuarioModel> update(@RequestBody Usuario usuario) {
 		LOG.info("Ingresé al metodo update dentro de UsuarioRestController con el parametro " + usuario.toString());
-		return new ResponseEntity<Usuario>(usuarioService.save(usuario), HttpStatus.OK);
+		return new ResponseEntity<UsuarioModel>(usuarioService.save(usuario), HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = { "/delete/{id}" })

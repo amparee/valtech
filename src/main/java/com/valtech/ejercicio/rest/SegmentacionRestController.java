@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valtech.ejercicio.entity.Segmentacion;
+import com.valtech.ejercicio.model.SegmentacionModel;
 import com.valtech.ejercicio.service.SegmentacionService;
 import com.valtech.ejercicio.service.impl.SegmentacionServiceImpl;
 
@@ -33,17 +34,17 @@ public class SegmentacionRestController {
 	private final Log LOG = LogFactory.getLog(SegmentacionServiceImpl.class);
 
 	@GetMapping("/get-segmentaciones")
-	public ResponseEntity<List<Segmentacion>> getSegmentaciones() {
+	public ResponseEntity<List<SegmentacionModel>> getSegmentaciones() {
 		LOG.info("Ingresé al metodo getSegmentaciones dentro de SegmentacionRestController");
-		return new ResponseEntity<List<Segmentacion>>(segmentacionService.listSegmentacion(), HttpStatus.OK);
+		return new ResponseEntity<List<SegmentacionModel>>(segmentacionService.listSegmentacion(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getSegmentacionById(@PathVariable("id") Long id) {
 		LOG.info("Ingresé al metodo getSegmentacionById dentro de SegmentacionRestController con el parametro " + id);
 		try {
-			Segmentacion segmentacion = segmentacionService.findById(id);
-			return new ResponseEntity<Segmentacion>(segmentacion, HttpStatus.OK);
+			SegmentacionModel segmentacionModel = segmentacionService.findById(id);
+			return new ResponseEntity<SegmentacionModel>(segmentacionModel, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
@@ -51,17 +52,17 @@ public class SegmentacionRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Segmentacion> createSegmentacion(@RequestBody Segmentacion segmentacion) {
+	public ResponseEntity<SegmentacionModel> createSegmentacion(@RequestBody Segmentacion segmentacion) {
 		LOG.info("Ingresé al metodo createSegmentacion dentro de SegmentacionRestController con el parametro "
 				+ segmentacion.toString());
-		return new ResponseEntity<Segmentacion>(segmentacionService.save(segmentacion), HttpStatus.OK);
+		return new ResponseEntity<SegmentacionModel>(segmentacionService.save(segmentacion), HttpStatus.OK);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Segmentacion> update(@RequestBody Segmentacion segmentacion) {
+	public ResponseEntity<SegmentacionModel> update(@RequestBody Segmentacion segmentacion) {
 		LOG.info("Ingresé al metodo update dentro de SegmentacionRestController con el parametro "
 				+ segmentacion.toString());
-		return new ResponseEntity<Segmentacion>(segmentacionService.save(segmentacion), HttpStatus.OK);
+		return new ResponseEntity<SegmentacionModel>(segmentacionService.save(segmentacion), HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = { "/delete/{id}" })

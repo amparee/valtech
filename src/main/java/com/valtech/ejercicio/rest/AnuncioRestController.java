@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valtech.ejercicio.entity.Anuncio;
+import com.valtech.ejercicio.model.AnuncioModel;
 import com.valtech.ejercicio.service.AnuncioService;
 import com.valtech.ejercicio.service.impl.AnuncioServiceImpl;
 
@@ -33,17 +34,17 @@ public class AnuncioRestController {
 	private final Log LOG = LogFactory.getLog(AnuncioServiceImpl.class);
 
 	@GetMapping("/get-anuncios")
-	public ResponseEntity<List<Anuncio>> getAnuncios() {
+	public ResponseEntity<List<AnuncioModel>> getAnuncios() {
 		LOG.info("Ingresé al metodo getAnuncios dentro de AnuncioRestController");
-		return new ResponseEntity<List<Anuncio>>(anuncioService.listAnuncios(), HttpStatus.OK);
+		return new ResponseEntity<List<AnuncioModel>>(anuncioService.listAnuncios(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getAnuncioById(@PathVariable("id") Long id) {
 		LOG.info("Ingresé al metodo getAnuncioById dentro de AnuncioRestController con el parametro " + id);
 		try {
-			Anuncio anuncio = anuncioService.findById(id);
-			return new ResponseEntity<Anuncio>(anuncio, HttpStatus.OK);
+			AnuncioModel anuncioModel = anuncioService.findById(id);
+			return new ResponseEntity<AnuncioModel>(anuncioModel, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
@@ -51,16 +52,16 @@ public class AnuncioRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Anuncio> createAnuncio(@RequestBody Anuncio anuncio) {
+	public ResponseEntity<AnuncioModel> createAnuncio(@RequestBody Anuncio anuncio) {
 		LOG.info("Ingresé al metodo createAnuncio dentro de AnuncioRestController con el parametro "
 				+ anuncio.toString());
-		return new ResponseEntity<Anuncio>(anuncioService.save(anuncio), HttpStatus.OK);
+		return new ResponseEntity<AnuncioModel>(anuncioService.save(anuncio), HttpStatus.OK);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Anuncio> update(@RequestBody Anuncio anuncio) {
+	public ResponseEntity<AnuncioModel> update(@RequestBody Anuncio anuncio) {
 		LOG.info("Ingresé al metodo update dentro de AnuncioRestController con el parametro " + anuncio.toString());
-		return new ResponseEntity<Anuncio>(anuncioService.save(anuncio), HttpStatus.OK);
+		return new ResponseEntity<AnuncioModel>(anuncioService.save(anuncio), HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = { "/delete/{id}" })

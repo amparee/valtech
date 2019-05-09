@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.valtech.ejercicio.entity.Anuncio;
+import com.valtech.ejercicio.model.AnuncioModel;
 
 public interface AnuncioService {
-	public abstract List<Anuncio> listAnuncios();
+	public abstract List<AnuncioModel> listAnuncios();
 
-	public abstract Anuncio findById(Long id) throws NoSuchElementException;
+	public abstract AnuncioModel findById(Long id) throws NoSuchElementException;
 
-	public abstract Anuncio save(Anuncio anuncio);
+	public abstract AnuncioModel save(Anuncio anuncio);
 
 	public abstract boolean delete(Long id);
 }
